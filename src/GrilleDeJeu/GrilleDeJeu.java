@@ -85,20 +85,27 @@ public class GrilleDeJeu {
         return matriceCellules;
     }
 
-    public Cellule[][] revelerCellule(int ligne, int colonne) {
-        if (matriceCellules[ligne-1][colonne-1].getPresenceBombe() == true || matriceCellules[ligne-1][colonne-1].getNbBombesAdjacentes() != 0) {
-            matriceCellules[ligne-1][colonne-1].revelerCellule();
-            return matriceCellules;
-        } else {
-            matriceCellules[ligne-1][colonne-1].revelerCellule();
-            return matriceCellules;
+    public void revelerCellule(int ligne, int colonne) {
+        // 1️⃣ Vérification des bornes de la grille (éviter l'IndexOutOfBoundsException)
+        if (ligne - 1 < 0 || ligne - 1 >= nbLignes || colonne - 1 < 0 || colonne - 1 >= nbColonnes || matriceCellules[ligne - 1][colonne - 1].getdevoilee() == true) {
+            return;
+        }
+        matriceCellules[ligne - 1][colonne - 1].revelerCellule();
+
+        if (matriceCellules[ligne - 1][colonne - 1].getPresenceBombe() || matriceCellules[ligne - 1][colonne - 1].getNbBombesAdjacentes() > 0) {
+            return;
+        }
+
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (i == 0 && j == 0) {
+                    continue; 
+                }
+                revelerCellule(ligne + i, colonne + j); 
+            }
         }
     }
 
- 
-
-    
-    
     @Override
     public String toString() {
         String texte = " ";
