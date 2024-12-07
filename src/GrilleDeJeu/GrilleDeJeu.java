@@ -36,6 +36,10 @@ public class GrilleDeJeu {
     public int getNbBombes() {
         return this.nbBombes;
     }
+    
+    public Cellule[][] getMatrice(){
+        return this.matriceCellules;
+    }
 
     public Cellule[][] placerBombesAleatoirement() {
         int bombeplace = 0;
