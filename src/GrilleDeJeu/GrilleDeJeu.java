@@ -36,9 +36,90 @@ public class GrilleDeJeu {
     public int getNbBombes() {
         return this.nbBombes;
     }
-    
-    public Cellule[][] getMatrice(){
+
+    public Cellule[][] getMatrice() {
         return this.matriceCellules;
+    }
+
+    public void premier_coup(int ligne, int colonne) {
+        int bombe_a_placer = matriceCellules[ligne][colonne].getNbBombesAdjacentes();
+        int bombe = 0;
+        while (bombe != bombe_a_placer) {
+            int i = (int) (Math.random() * (nbLignes));
+            int j = (int) (Math.random() * (nbColonnes));
+            if (matriceCellules[i][j].getPresenceBombe() == false) {
+                matriceCellules[i][j].placerBombe();
+                bombe++;
+            }
+        }
+        aucuneBombeAutour(ligne, colonne);
+        calculerBombesAdjacentes();
+
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                revelerCellule(ligne + i, colonne + j);
+
+            }
+        }
+
+        return;
+    }
+
+    public void aucuneBombeAutour(int ligne, int colonne) {
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (matriceCellules[ligne + i - 1][colonne + j - 1].getPresenceBombe() == true) {
+                    matriceCellules[ligne + i - 1][colonne + j - 1].retirerBombe();
+
+                }
+            }
+        }
+    }
+
+    public int nbCasesReveles() {
+        int case_revele = 0;
+        for (int i = 0; i < nbLignes; i++) {
+            for (int j = 0; j < nbColonnes; j++) {
+                if (reveler(i, j) == true) {
+                    case_revele++;
+                }
+            }
+        }
+        return case_revele;
+
+    }
+
+    public boolean verifierVictoire() {
+        for (int i = 0; i < nbLignes; i++) {
+            for (int j = 0; j < nbColonnes; j++) {
+                if (matriceCellules[i][j].getdevoilee() == false && matriceCellules[i][j].getPresenceBombe() == false) {
+                    return false;
+                }
+            }
+
+        }
+        return true;
+
+    }
+
+    public boolean verifierDefaite() {
+        for (int i = 0; i < nbLignes; i++) {
+            for (int j = 0; j < nbColonnes; j++) {
+                if (matriceCellules[i][j].getdevoilee() == true && matriceCellules[i][j].getPresenceBombe() == true) {
+                    return true;
+                }
+            }
+
+        }
+        return false;
+
+    }
+
+    public boolean reveler(int ligne, int colonne) {
+        if (matriceCellules[ligne][colonne].getdevoilee() == false) {
+            return false;
+        }
+        return true;
     }
 
     public Cellule[][] placerBombesAleatoirement() {
@@ -103,9 +184,9 @@ public class GrilleDeJeu {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (i == 0 && j == 0) {
-                    continue; 
+                    continue;
                 }
-                revelerCellule(ligne + i, colonne + j); 
+                revelerCellule(ligne + i, colonne + j);
             }
         }
     }
