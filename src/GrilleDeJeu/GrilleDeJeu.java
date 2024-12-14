@@ -42,21 +42,23 @@ public class GrilleDeJeu {
     }
 
     public void premier_coup(int ligne, int colonne) {
-        int bombe_a_placer = matriceCellules[ligne][colonne].getNbBombesAdjacentes();
-        int bombe = 0;
-        while (bombe != bombe_a_placer) {
+
+        aucuneBombeAutour(ligne, colonne);
+        while (compteurBombe() != this.nbBombes) {
             int i = (int) (Math.random() * (nbLignes));
             int j = (int) (Math.random() * (nbColonnes));
             if (matriceCellules[i][j].getPresenceBombe() == false) {
                 matriceCellules[i][j].placerBombe();
-                bombe++;
+                System.out.println(matriceCellules[ligne - 1][colonne - 1].getNbBombesAdjacentes());
+
+                aucuneBombeAutour(ligne, colonne);
+                calculerBombesAdjacentes();
             }
         }
-        aucuneBombeAutour(ligne, colonne);
-        calculerBombesAdjacentes();
 
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
+                //System.out.println("coordonees " + (ligne + i) + " " + (colonne + j));
                 revelerCellule(ligne + i, colonne + j);
 
             }
@@ -68,9 +70,12 @@ public class GrilleDeJeu {
     public void aucuneBombeAutour(int ligne, int colonne) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (matriceCellules[ligne + i - 1][colonne + j - 1].getPresenceBombe() == true) {
-                    matriceCellules[ligne + i - 1][colonne + j - 1].retirerBombe();
+                if ((ligne + i <= 0) || (ligne + i >= nbLignes + 1) || (colonne + j <= 0) || (colonne + j >= nbColonnes + 1)) {
 
+                } else {
+                    if (matriceCellules[ligne + i - 1][colonne + j - 1].getPresenceBombe() == true) {
+                        matriceCellules[ligne + i - 1][colonne + j - 1].retirerBombe();
+                    }
                 }
             }
         }
@@ -122,14 +127,25 @@ public class GrilleDeJeu {
         return true;
     }
 
+    public int compteurBombe() {
+        int cpt = 0;
+        for (int i = 0; i < nbLignes; i++) {
+            for (int j = 0; j < nbColonnes; j++) {
+                if (matriceCellules[i][j].getPresenceBombe() == true) {
+                    cpt++;
+                }
+            }
+
+        }
+        return cpt;
+    }
+
     public Cellule[][] placerBombesAleatoirement() {
-        int bombeplace = 0;
-        while (bombeplace != this.nbBombes) {
+        while (compteurBombe() != this.nbBombes) {
             int i = (int) (Math.random() * (nbLignes));
             int j = (int) (Math.random() * (nbColonnes));
             if (matriceCellules[i][j].getPresenceBombe() == false) {
                 matriceCellules[i][j].placerBombe();
-                bombeplace += 1;
             }
         }
         return matriceCellules;
