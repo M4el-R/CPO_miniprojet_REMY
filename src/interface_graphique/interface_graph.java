@@ -27,7 +27,7 @@ public class interface_graph extends javax.swing.JFrame {
         initComponents();
         int nbLignes = 5;
         int nbColonnes = 5;
-        double bombes = (nbLignes * nbColonnes) * 0.21;
+        double bombes = (nbLignes * nbColonnes) * 0.2;
         int bombe = (int) bombes;
 
         Cellule[][] tab = new Cellule[nbLignes][nbColonnes];
@@ -61,15 +61,21 @@ public class interface_graph extends javax.swing.JFrame {
                                     grille.revelerCellule(i + 1, j + 1);
                                 }
                             }
+                            fenetreVictoire f = new fenetreVictoire();
+                            f.setVisible(true);
+                            dispose();
 
-                        }
-                        if (grille.verifierDefaite() == true) {
-                            for (int i = 0; i < nbLignes; i++) {
-                                for (int j = 0; j < nbColonnes; j++) {
-                                    grille.revelerCellule(i + 1, j + 1);
+                        } else {
+                            if (grille.verifierDefaite() == true) {
+                                for (int i = 0; i < nbLignes; i++) {
+                                    for (int j = 0; j < nbColonnes; j++) {
+                                        grille.revelerCellule(i + 1, j + 1);
+                                    }
                                 }
+                                fenetreDefaite f = new fenetreDefaite();
+                                f.setVisible(true);
+                                dispose();
                             }
-
                         }
 
                         PanneauGrille.repaint();
@@ -95,19 +101,20 @@ public class interface_graph extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         PanneauGrille.setBackground(new java.awt.Color(0, 204, 255));
+        PanneauGrille.setPreferredSize(new java.awt.Dimension(900, 500));
 
         javax.swing.GroupLayout PanneauGrilleLayout = new javax.swing.GroupLayout(PanneauGrille);
         PanneauGrille.setLayout(PanneauGrilleLayout);
         PanneauGrilleLayout.setHorizontalGroup(
             PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 950, Short.MAX_VALUE)
+            .addGap(0, 900, Short.MAX_VALUE)
         );
         PanneauGrilleLayout.setVerticalGroup(
             PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 510, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
 
-        getContentPane().add(PanneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 510));
+        getContentPane().add(PanneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
