@@ -11,10 +11,11 @@ package Cellule;
 public class Cellule {
 
     private boolean presenceBombe;
+    private boolean presenceDrapeau;
     private boolean devoilee;
     private int nbBombesAdjacentes;
 
-    public Cellule(boolean presenceBombe, boolean devoilee, int nbBombesAdjacentes) {
+    public Cellule(boolean presenceBombe,boolean presenceDrapeau, boolean devoilee, int nbBombesAdjacentes) {
         this.presenceBombe = presenceBombe;
         this.devoilee = devoilee;
         this.nbBombesAdjacentes = nbBombesAdjacentes;
@@ -22,6 +23,10 @@ public class Cellule {
 
     public boolean getPresenceBombe() {
         return this.presenceBombe;
+    }
+    
+    public boolean getPresenceDrapeau(){
+        return this.presenceDrapeau;
     }
 
     public boolean getdevoilee() {
@@ -39,6 +44,14 @@ public class Cellule {
     public void retirerBombe(){
         presenceBombe = false;
     }
+    
+    public void placerDrapeau(){
+        presenceDrapeau = true;
+    }
+    
+    public void retirerDrapeau(){
+        presenceDrapeau = false;
+    }
     public void revelerCellule() {
         devoilee = true;
     }
@@ -49,8 +62,12 @@ public class Cellule {
     }
 
     public String toString(boolean devoilee, int nbBombesAdjacentes, boolean presenceBombe) {
-        if (devoilee == false) {
+        if (devoilee == false && presenceDrapeau == false) {
             return "?";
+        }
+        
+        if(devoilee == false && presenceDrapeau ==true){
+            return"D";
         }
 
         if (presenceBombe == true) {
