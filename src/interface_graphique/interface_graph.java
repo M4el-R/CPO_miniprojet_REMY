@@ -9,7 +9,10 @@ import CelluleGraphique.CelluleGraphique;
 import GrilleDeJeu.GrilleDeJeu;
 import Partie.*;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JButton;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -33,7 +36,7 @@ public class interface_graph extends javax.swing.JFrame {
         Cellule[][] tab = new Cellule[nbLignes][nbColonnes];
         for (int i = 0; i < nbLignes; i++) {
             for (int j = 0; j < nbColonnes; j++) {
-                tab[i][j] = new Cellule(false, false, 0);
+                tab[i][j] = new Cellule(false, false, false, 0);
             }
         }
         grille = new GrilleDeJeu(tab, nbLignes, nbColonnes, bombe);
@@ -47,41 +50,38 @@ public class interface_graph extends javax.swing.JFrame {
                 CelluleGraphique bouton_cellule = new CelluleGraphique(i, j, grille.getMatrice()[i][j]);
                 PanneauGrille.add(bouton_cellule);
 
-                bouton_cellule.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        grille.nbCasesReveles();
-                        if (grille.nbCasesReveles() == 0) {
-                            grille.premier_coup(bouton_cellule.x + 1, bouton_cellule.y + 1);
-
-                        }
-                        grille.revelerCellule(bouton_cellule.x + 1, bouton_cellule.y + 1);
-                        if (grille.verifierVictoire() == true) {
-                            for (int i = 0; i < nbLignes; i++) {
-                                for (int j = 0; j < nbColonnes; j++) {
-                                    grille.revelerCellule(i + 1, j + 1);
-                                }
-                            }
-                            fenetreVictoire f = new fenetreVictoire();
-                            f.setVisible(true);
-                            dispose();
+                bouton_cellule.addMouseListener(new MouseAdapter() {
+                    public void mouseClicked(MouseEvent evt) {
+                        if (SwingUtilities.isRightMouseButton(evt)) {
+                            grille.drapeau(bouton_cellule.x + 1, bouton_cellule.y + 1);
+                            PanneauGrille.repaint();
 
                         } else {
-                            if (grille.verifierDefaite() == true) {
-                                for (int i = 0; i < nbLignes; i++) {
-                                    for (int j = 0; j < nbColonnes; j++) {
-                                        grille.revelerCellule(i + 1, j + 1);
-                                    }
-                                }
-                                fenetreDefaite f = new fenetreDefaite();
+                            grille.nbCasesReveles();
+                            if (grille.nbCasesReveles() == 0) {
+                                grille.premier_coup(bouton_cellule.x + 1, bouton_cellule.y + 1);
+                            } else {
+                                grille.revelerCellule(bouton_cellule.x + 1, bouton_cellule.y + 1);
+                            }
+
+                            if (grille.verifierVictoire() == true) {
+                                fenetreVictoire f = new fenetreVictoire();
                                 f.setVisible(true);
                                 dispose();
-                            }
-                        }
 
-                        PanneauGrille.repaint();
+                            } else {
+                                if (grille.verifierDefaite() == true) {
+                                    fenetreDefaite f = new fenetreDefaite();
+                                    f.setVisible(true);
+                                    dispose();
+                                }
+                            }
+
+                            PanneauGrille.repaint();
+
+                        }
                     }
-                }
-                );
+                });
             }
         }
     }
