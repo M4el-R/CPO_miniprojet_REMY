@@ -185,10 +185,17 @@ public class GrilleDeJeu {
         }
         return matriceCellules;
     }
-
+    public void drapeau(int ligne, int colonne){
+        if (matriceCellules[ligne-1][colonne-1].getPresenceDrapeau() == false){
+            matriceCellules[ligne-1][colonne-1].placerDrapeau();
+        }
+        else{
+            matriceCellules[ligne-1][colonne-1].retirerDrapeau();
+        }
+    }
     public void revelerCellule(int ligne, int colonne) {
         // 1️⃣ Vérification des bornes de la grille (éviter l'IndexOutOfBoundsException)
-        if (ligne - 1 < 0 || ligne - 1 >= nbLignes || colonne - 1 < 0 || colonne - 1 >= nbColonnes || matriceCellules[ligne - 1][colonne - 1].getdevoilee() == true) {
+        if (ligne - 1 < 0 || ligne - 1 >= nbLignes || colonne - 1 < 0 || colonne - 1 >= nbColonnes || matriceCellules[ligne - 1][colonne - 1].getdevoilee() == true || matriceCellules[ligne - 1][colonne - 1].getPresenceDrapeau() == true) {
             return;
         }
         matriceCellules[ligne - 1][colonne - 1].revelerCellule();
