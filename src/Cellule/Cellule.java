@@ -14,8 +14,9 @@ public class Cellule {
     private boolean presenceDrapeau;
     private boolean devoilee;
     private int nbBombesAdjacentes;
+    private int nbDrapeauAdjacents;
 
-    public Cellule(boolean presenceBombe,boolean presenceDrapeau, boolean devoilee, int nbBombesAdjacentes) {
+    public Cellule(boolean presenceBombe,boolean presenceDrapeau, boolean devoilee, int nbBombesAdjacentes, int nbDrapeauAdjacents) {
         this.presenceBombe = presenceBombe;
         this.devoilee = devoilee;
         this.nbBombesAdjacentes = nbBombesAdjacentes;
@@ -35,6 +36,10 @@ public class Cellule {
 
     public int getNbBombesAdjacentes() {
         return this.nbBombesAdjacentes;
+    }
+    
+    public int getNbDrapeauAdjacents(){
+        return this.nbDrapeauAdjacents;
     }
 
     public void placerBombe() {
