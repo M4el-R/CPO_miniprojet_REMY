@@ -4,6 +4,7 @@
  */
 package cpo_miniprojet_remy;
 
+import Partie.Partie;
 import GrilleDeJeu.*;
 import Cellule.*;
 import java.util.ArrayList;
@@ -25,11 +26,12 @@ public class CPO_miniprojet_REMY {
         sc = new Scanner(System.in);
         System.out.println("Choisissez une grille x*x");
         int n = sc.nextInt();
-        int bombe = n;
+        double bombes = (n*n)*0.2;
+        int bombe = (int)bombes;
         Cellule[][] tab = new Cellule[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                tab[i][j] = new Cellule(false, false, 0);
+                tab[i][j] = new Cellule(false,false, false, 0, 0);
             }
         }
 
@@ -46,6 +48,7 @@ public class CPO_miniprojet_REMY {
             lignec = sc.nextInt();
             System.out.println("Choisissez une colonne");
             colonnec = sc.nextInt();
+            
             tableau.tourDeJeu(lignec, colonnec);
             System.out.println(tableau);
             if(tableau.verifierDefaite()==true){
