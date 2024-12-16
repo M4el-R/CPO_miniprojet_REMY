@@ -28,15 +28,15 @@ public class interface_graph extends javax.swing.JFrame {
 
     public interface_graph() {
         initComponents();
-        int nbLignes = 5;
-        int nbColonnes = 5;
-        double bombes = (nbLignes * nbColonnes) * 0.2;
+        int nbLignes = 8;
+        int nbColonnes = 8;
+        double bombes = (nbLignes * nbColonnes) * 0.4;
         int bombe = (int) bombes;
 
         Cellule[][] tab = new Cellule[nbLignes][nbColonnes];
         for (int i = 0; i < nbLignes; i++) {
             for (int j = 0; j < nbColonnes; j++) {
-                tab[i][j] = new Cellule(false, false, false, 0);
+                tab[i][j] = new Cellule(false, false, false, 0,0);
             }
         }
         grille = new GrilleDeJeu(tab, nbLignes, nbColonnes, bombe);
@@ -61,6 +61,7 @@ public class interface_graph extends javax.swing.JFrame {
                             if (grille.nbCasesReveles() == 0) {
                                 grille.premier_coup(bouton_cellule.x + 1, bouton_cellule.y + 1);
                             } else {
+                                grille.revelerAutour(bouton_cellule.x + 1, bouton_cellule.y + 1);
                                 grille.revelerCellule(bouton_cellule.x + 1, bouton_cellule.y + 1);
                             }
 
