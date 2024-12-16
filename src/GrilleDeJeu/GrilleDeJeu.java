@@ -49,7 +49,6 @@ public class GrilleDeJeu {
             int j = (int) (Math.random() * (nbColonnes));
             if (matriceCellules[i][j].getPresenceBombe() == false) {
                 matriceCellules[i][j].placerBombe();
-                System.out.println(matriceCellules[ligne - 1][colonne - 1].getNbBombesAdjacentes());
 
                 aucuneBombeAutour(ligne, colonne);
                 calculerBombesAdjacentes();
@@ -79,6 +78,39 @@ public class GrilleDeJeu {
                 }
             }
         }
+    }
+
+    public int drapeauAdjacents(int ligne, int colonne) {
+        int cpt = 0;
+
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if ((ligne + i <= 0) || (ligne + i >= nbLignes + 1) || (colonne + j <= 0) || (colonne + j >= nbColonnes + 1)) {
+
+                } else {
+
+                    if (matriceCellules[ligne + i - 1][colonne + j - 1].getPresenceDrapeau() == true) {
+                        cpt++;
+
+                    }
+                }
+            }
+        }
+        return cpt;
+    }
+
+    public void revelerAutour(int ligne, int colonne) {
+        System.out.println(drapeauAdjacents(ligne, colonne));
+
+        if (drapeauAdjacents(ligne, colonne) == matriceCellules[ligne - 1][colonne - 1].getNbBombesAdjacentes() && matriceCellules[ligne - 1][colonne - 1].getdevoilee() == true) {
+            for (int i = -1; i <= 1; i++) {
+                for (int j = -1; j <= 1; j++) {
+                    revelerCellule(ligne + i, colonne + j);
+
+                }
+            }
+        }
+        return;
     }
 
     public int nbCasesReveles() {
@@ -185,14 +217,15 @@ public class GrilleDeJeu {
         }
         return matriceCellules;
     }
-    public void drapeau(int ligne, int colonne){
-        if (matriceCellules[ligne-1][colonne-1].getPresenceDrapeau() == false){
-            matriceCellules[ligne-1][colonne-1].placerDrapeau();
-        }
-        else{
-            matriceCellules[ligne-1][colonne-1].retirerDrapeau();
+
+    public void drapeau(int ligne, int colonne) {
+        if (matriceCellules[ligne - 1][colonne - 1].getPresenceDrapeau() == false) {
+            matriceCellules[ligne - 1][colonne - 1].placerDrapeau();
+        } else {
+            matriceCellules[ligne - 1][colonne - 1].retirerDrapeau();
         }
     }
+
     public void revelerCellule(int ligne, int colonne) {
         // 1️⃣ Vérification des bornes de la grille (éviter l'IndexOutOfBoundsException)
         if (ligne - 1 < 0 || ligne - 1 >= nbLignes || colonne - 1 < 0 || colonne - 1 >= nbColonnes || matriceCellules[ligne - 1][colonne - 1].getdevoilee() == true || matriceCellules[ligne - 1][colonne - 1].getPresenceDrapeau() == true) {
