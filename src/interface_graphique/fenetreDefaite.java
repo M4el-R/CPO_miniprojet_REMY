@@ -30,6 +30,7 @@ public class fenetreDefaite extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         rejouer = new javax.swing.JButton();
         quitter = new javax.swing.JButton();
+        menu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,9 +44,21 @@ public class fenetreDefaite extends javax.swing.JFrame {
         });
 
         quitter.setText("Quitter");
+        quitter.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                quitterMouseClicked(evt);
+            }
+        });
         quitter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 quitterActionPerformed(evt);
+            }
+        });
+
+        menu.setText("Menu");
+        menu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuActionPerformed(evt);
             }
         });
 
@@ -54,16 +67,18 @@ public class fenetreDefaite extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addComponent(rejouer)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addComponent(rejouer)
-                        .addGap(59, 59, 59)
-                        .addComponent(quitter))
+                        .addGap(51, 51, 51)
+                        .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(182, 182, 182)
-                        .addComponent(jLabel1)))
-                .addContainerGap(96, Short.MAX_VALUE))
+                        .addGap(39, 39, 39)
+                        .addComponent(menu)
+                        .addGap(39, 39, 39)
+                        .addComponent(quitter)))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -73,6 +88,7 @@ public class fenetreDefaite extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rejouer)
+                    .addComponent(menu)
                     .addComponent(quitter))
                 .addGap(61, 61, 61))
         );
@@ -102,6 +118,16 @@ public class fenetreDefaite extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_quitterActionPerformed
+
+    private void quitterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitterMouseClicked
+    }//GEN-LAST:event_quitterMouseClicked
+
+    private void menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuActionPerformed
+        // TODO add your handling code here:
+        fenetreMenu f = new fenetreMenu();
+        f.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_menuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -141,6 +167,7 @@ public class fenetreDefaite extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton menu;
     private javax.swing.JButton quitter;
     private javax.swing.JButton rejouer;
     // End of variables declaration//GEN-END:variables
