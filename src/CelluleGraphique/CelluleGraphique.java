@@ -16,6 +16,7 @@ public class CelluleGraphique extends JButton {
 
     public int x;
     public int y;
+    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
 
     Cellule celluleAssociee;
 
@@ -37,7 +38,7 @@ public class CelluleGraphique extends JButton {
             this.setText(String.valueOf(celluleAssociee.getNbBombesAdjacentes()));
 
         } else if (celluleAssociee.getPresenceDrapeau() == true && celluleAssociee.getdevoilee() == false) {
-            this.setText("D");
+            this.setText("🚩");
         } else if (celluleAssociee.getdevoilee() == false) {
             this.setText(" ");
 
