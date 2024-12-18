@@ -22,46 +22,81 @@ public class Cellule {
         this.nbBombesAdjacentes = nbBombesAdjacentes;
     }
 
+    /**
+     *renvoie l'état presenceBombe
+     */
     public boolean getPresenceBombe() {
         return this.presenceBombe;
     }
     
+    /**
+     *renvoie l'état presenceDrapeau
+     */
     public boolean getPresenceDrapeau(){
         return this.presenceDrapeau;
     }
-
+    
+    /**
+     *renvoie l'état dévoilé
+     */
     public boolean getdevoilee() {
         return this.devoilee;
     }
 
+    /**
+     *renvoie le nombre de bombes adjacentes
+     */
     public int getNbBombesAdjacentes() {
         return this.nbBombesAdjacentes;
     }
     
+    /**
+     * renvoie le nombre de drapeau adjacents
+     */
     public int getNbDrapeauAdjacents(){
         return this.nbDrapeauAdjacents;
     }
-
+    
+    /**
+     *place une bombe
+     */
     public void placerBombe() {
         presenceBombe = true;
     }
-
+    
+    /**
+     *retire une bombe
+     */
     public void retirerBombe(){
         presenceBombe = false;
     }
     
+    /**
+     *place un drapeau
+     */
     public void placerDrapeau(){
         presenceDrapeau = true;
     }
     
+    /**
+     *retire un drapeau
+     */
     public void retirerDrapeau(){
         presenceDrapeau = false;
     }
+    
+    /**
+     *passe l'état devoilee à true
+     */
     public void revelerCellule() {
         devoilee = true;
     }
     
-    
+    /**
+     *
+     * @param nbBombesAdjacentes
+     * initialise le nombre de bombes adjacentes
+     */
     public void setNbBombesAdjacentes(int nbBombesAdjacentes) {
         this.nbBombesAdjacentes = nbBombesAdjacentes;
     }
@@ -72,7 +107,7 @@ public class Cellule {
         }
         
         if(devoilee == false && presenceDrapeau ==true){
-            return"D";
+            return"🚩";
         }
 
         if (presenceBombe == true) {
