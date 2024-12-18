@@ -24,23 +24,40 @@ public class GrilleDeJeu {
         this.matriceCellules = matriceCellules;
 
     }
-
+    
+    /**
+     *renvoie le nombre de lignes
+     */
     public int getNbLines() {
         return this.nbLignes;
     }
 
+    /**
+     *renvoie le nombre de colonnes
+     */
     public int getNbColonnes() {
         return this.nbColonnes;
     }
 
+    /**
+     *renvoie le nombre de bombes
+     */
     public int getNbBombes() {
         return this.nbBombes;
     }
 
+    /**
+     *renvoie la matrice de jeu
+     */
     public Cellule[][] getMatrice() {
         return this.matriceCellules;
     }
-
+    
+    /**
+     * @param ligne 
+     * @param colonne
+     *devoile les premières cases en fonction de la ligne et colonne choisi
+     */
     public void premier_coup(int ligne, int colonne) {
 
         aucuneBombeAutour(ligne, colonne);
@@ -65,7 +82,12 @@ public class GrilleDeJeu {
 
         return;
     }
-
+    
+    /**
+     * @param ligne 
+     * @param colonne
+     *enleve les bombes adjacentes à ligne colonne et sur les coordonnées(ligne, colonne) s'il y en a
+     */
     public void aucuneBombeAutour(int ligne, int colonne) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
@@ -79,7 +101,12 @@ public class GrilleDeJeu {
             }
         }
     }
-
+    /**
+     * @param ligne 
+     * @param colonne
+     *calcule le nombre de drapeau adjacents puis renvoi le nombre de drapeauu trouvé
+     */
+    
     public int drapeauAdjacents(int ligne, int colonne) {
         int cpt = 0;
 
@@ -98,7 +125,12 @@ public class GrilleDeJeu {
         }
         return cpt;
     }
-
+    
+    /**
+     * @param ligne 
+     * @param colonne
+     *devoile les cases autour de la case de coordonées (ligne, colonne) si son nombre de drapeau adjacents est egal a celui des bombes alentour
+     */
     public void revelerAutour(int ligne, int colonne) {
         System.out.println(drapeauAdjacents(ligne, colonne));
 
@@ -112,7 +144,10 @@ public class GrilleDeJeu {
         }
         return;
     }
-
+    
+    /**
+     *renvoie le nombre de cases revele
+     */
     public int nbCasesReveles() {
         int case_revele = 0;
         for (int i = 0; i < nbLignes; i++) {
@@ -125,7 +160,9 @@ public class GrilleDeJeu {
         return case_revele;
 
     }
-
+    /**
+     *renvoie true si toutes les cases sans bombes ont été revelé, false sinon
+     */
     public boolean verifierVictoire() {
         for (int i = 0; i < nbLignes; i++) {
             for (int j = 0; j < nbColonnes; j++) {
@@ -138,6 +175,9 @@ public class GrilleDeJeu {
         return true;
 
     }
+    /**
+     *renvoie true si une case avec une bombe a été revelé, false sinon
+     */
 
     public boolean verifierDefaite() {
         for (int i = 0; i < nbLignes; i++) {
@@ -152,13 +192,21 @@ public class GrilleDeJeu {
 
     }
 
+     /**
+     *@param ligne
+     *@param colonne
+     *renvoie si la case de coordonés(ligne, colonne)a été revelé
+     */
     public boolean reveler(int ligne, int colonne) {
         if (matriceCellules[ligne][colonne].getdevoilee() == false) {
             return false;
         }
         return true;
     }
-
+    
+     /**
+     *renvoie le nombre de bombes
+     */
     public int compteurBombe() {
         int cpt = 0;
         for (int i = 0; i < nbLignes; i++) {
@@ -172,6 +220,9 @@ public class GrilleDeJeu {
         return cpt;
     }
 
+        /**
+     *place des bombes sur la grille
+     */
     public Cellule[][] placerBombesAleatoirement() {
         while (compteurBombe() != this.nbBombes) {
             int i = (int) (Math.random() * (nbLignes));
@@ -183,6 +234,9 @@ public class GrilleDeJeu {
         return matriceCellules;
     }
 
+        /**
+     *calcule le nombre de bombes adjacentes sur la grille
+     */
     public Cellule[][] calculerBombesAdjacentes() {
         for (int i = 0; i < nbLignes; i++) {
             for (int j = 0; j < nbColonnes; j++) {
@@ -218,6 +272,11 @@ public class GrilleDeJeu {
         return matriceCellules;
     }
 
+        /**
+         *@param ligne
+         * @param colonne
+     *ajoute ou enleve un drapeau sur les coordonnées (ligne, colonne)
+     */
     public void drapeau(int ligne, int colonne) {
         if (matriceCellules[ligne - 1][colonne - 1].getPresenceDrapeau() == false) {
             matriceCellules[ligne - 1][colonne - 1].placerDrapeau();
@@ -226,6 +285,11 @@ public class GrilleDeJeu {
         }
     }
 
+    /**
+         *@param ligne
+         * @param colonne
+     *revele la cellule de coordonées (ligne, colonne) et celles sans bombes adjacentes alentour
+     */
     public void revelerCellule(int ligne, int colonne) {
         // 1️⃣ Vérification des bornes de la grille (éviter l'IndexOutOfBoundsException)
         if (ligne - 1 < 0 || ligne - 1 >= nbLignes || colonne - 1 < 0 || colonne - 1 >= nbColonnes || matriceCellules[ligne - 1][colonne - 1].getdevoilee() == true || matriceCellules[ligne - 1][colonne - 1].getPresenceDrapeau() == true) {
